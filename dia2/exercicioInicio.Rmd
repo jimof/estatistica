@@ -1,0 +1,46 @@
+---
+title: "Exercício de Aula"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Esse exercício tem como objetivo praticar os conceitos referentes ao Rmarkdown e importação e análise inicial de um conjunto de dados. 
+
+Crie um relatório em HTML usando Rmarkdown com os elementos conforme as etapas:
+
+* Faça a importação dos dados disponíveis em:
+
+https://raw.githubusercontent.com/gustavopompeu/ENAP/master/MICRODADOS_ENEM_ESCOLA.csv
+
+* Descreva as dimensões do conjunto de dados, em relação ao número de linhas e colunas
+
+* Apresente as proporções de registros em relação os diferentes estados do Brasil.
+
+* Calcule a média das notas para os diferentes anos.
+
+* Apresente as médias por porte da escola.
+
+* Crie uma nova seção para o relatório usando os marcadores necessários (Escrever o nome de um tópico em Destaque)
+
+* Insira no texto um link para a página principal de seu orgão governamental
+
+* Insira no documento uma figura com algum símbolo nacional ou de seu orgão governamental
+
+## Funções vistas no exemplo inicial 
+
+plot()
+
+summary()
+
+mean()
+
+read.table()
+
+table()
+
+dim()
+
+tapply()

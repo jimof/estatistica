@@ -1,0 +1,124 @@
+---
+title: "Análise de Dados de pesca de camarão"
+author: "Aula Enap"
+date: "30 de agosto de 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Nesse relatório serão analisados dados de pesca de camarões no rio grande do norte
+
+A importação dos dados é feita na forma:
+```{r}
+planilha <-  read.table(file = "https://raw.githubusercontent.com/cursoRunb/inferencia2019/master/dia1/dadoscamarao.txt",
+           header = TRUE, dec = ",")
+```
+
+
+Inicialmente vamos fazer a contagem dos elementos nas variáveis qualitativas
+
+```{r}
+summary(planilha$Local)
+summary(planilha[,"Sexo"])
+```
+
+alternativamente
+```{r}
+summary(planilha[,1])
+summary(planilha[,2])
+```
+
+acessar múltiplas colunas de uma vez
+```{r}
+summary(planilha[,c("Local","Sexo")])
+summary(planilha[,c(1,2)])
+```
+
+Criando uma tabela de dupla entrada
+
+```{r}
+table(planilha$Local,planilha$Sexo)
+```
+
+
+```{r}
+planilha[1,]
+```
+
+
+```{r}
+planilha[c(1,2,3,100),]
+```
+
+Vou fazer um subconjunto somente com os camaroes de Touros
+```{r}
+sotouro <- droplevels(planilha[planilha$Local=="Touros" | planilha$Local=="DiogoLopes",])
+sotouro
+```
+
+
+
+```{r}
+planilha[planilha$Peso>15,]
+```
+
+Apresentando as distribuições de frequências em gráficos:
+```{r}
+pie(table(planilha$Local))
+```
+
+```{r}
+barplot(table(planilha$Local))
+```
+
+```{r}
+barplot(table(planilha$Sexo,planilha$Local),beside = T)
+```
+
+No conjunto de dados de peso a média é de:
+```{r}
+mean(planilha$Peso)
+```
+
+```{r}
+tapply(planilha$Peso,planilha$Sexo,mean)
+```
+
+```{r}
+tapply(planilha$Peso,paste(planilha$Local,planilha$Sexo),mean)
+
+```
+
+```{r}
+hist(planilha$Peso,freq = FALSE)
+lines(sort(planilha$Peso),
+      dnorm(sort(planilha$Peso),mean(planilha$Peso),sd(planilha$Peso)))
+```
+
+```{r}
+shapiro.test(planilha$Peso)
+```
+
+```{r}
+boxplot(planilha$Peso~planilha$Sexo)
+```
+
+
+```{r}
+pesomachos <- planilha[planilha$Sexo=="M","Peso"]
+pesofemeas <- planilha[planilha$Sexo=="F","Peso"]
+t.test(pesomachos,pesofemeas,alternative = "greater",paired = FALSE)
+```
+
+
+
+```{r}
+plot(planilha$Ct,planilha$Peso)
+abline(lm(planilha$Peso~planilha$Ct))
+cor(planilha$Ct,planilha$Peso)
+cor.test(planilha$Ct,planilha$Peso)
+```
+
